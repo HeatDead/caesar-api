@@ -1,0 +1,16 @@
+version: "3.7"
+services:
+  postgres_db:
+    image: "postgres:14.4"
+    restart: always
+    ports:
+      - "5432:5432"
+    expose:
+      - "5432:5432"
+    container_name: caesar_db
+    env_file:
+      - .env
+    environment:
+      - POSTGRES_USER=${USERNAME_DB}
+      - POSTGRES_PASSWORD=${PASSWORD_DB}
+      - POSTGRES_DB=${POSTGRES_DB}
