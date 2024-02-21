@@ -81,7 +81,7 @@ public class DeskServiceImp implements DeskService{
             panelRepository.save(optionalPanelEntity.get());
         }
     }
-    // TODO Сделать шоб перенос таски был одним методом и шоб транзакцию юзал
+    // TODO Сделать чтобы перенос таски был одним методом с транзакцией
     @Override
     public void removeTaskFromPanel(Long taskId, Long panelId) {
         Optional<TaskEntity> optionalTaskEntity = taskRepository.findById(taskId);
