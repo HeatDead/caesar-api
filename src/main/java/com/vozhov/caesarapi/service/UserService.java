@@ -12,4 +12,6 @@ public interface UserService {
     void addRole(Long userId, Set<Long> roles);
 
     List<UserEntity> getUsers();
+
+    void addGroup(Long userId, Long groupId);
 }

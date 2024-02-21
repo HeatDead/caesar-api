@@ -34,4 +34,16 @@ public class TaskServiceImp implements TaskService {
     public List<TaskEntity> getTasks() {
         return taskRepository.findAll();
     }
+
+    @Override
+    public List<TaskEntity> getTaskByProject(Long id) {
+        Optional<ProjectEntity> ope = projectRepository.findById(id);
+        return ope.map(taskRepository::findAllByProjectEntity).orElse(null);
+    }
+
+    @Override
+    public TaskEntity getTask(Long id) {
+        Optional<TaskEntity> te = taskRepository.findById(id);
+        return te.orElse(null);
+    }
 }

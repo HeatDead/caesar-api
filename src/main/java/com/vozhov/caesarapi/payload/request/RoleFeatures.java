@@ -1,4 +1,4 @@
-package com.vozhov.caesarapi.model;
+package com.vozhov.caesarapi.payload.request;
 
 public enum RoleFeatures {
     ADMINISTRATION ("Администрирование"),

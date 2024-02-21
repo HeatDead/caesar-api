@@ -1,7 +1,8 @@
 package com.vozhov.caesarapi.entity;
 
-import com.vozhov.caesarapi.model.RoleFeatures;
+import com.vozhov.caesarapi.payload.request.RoleFeatures;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,6 +16,7 @@ public class RoleEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank
     private String name;
 
     @ElementCollection(targetClass = RoleFeatures.class, fetch = FetchType.EAGER)

@@ -16,10 +16,9 @@ public class ProjectServiceImp implements ProjectService {
     private final ProjectRepository projectRepository;
 
     @Override
-    public void createProject(String name, String description) {
+    public void createProject(String name) {
         ProjectEntity pe = new ProjectEntity();
         pe.setName(name);
-        pe.setDescription(description);
 
         projectRepository.save(pe);
     }
@@ -27,6 +26,12 @@ public class ProjectServiceImp implements ProjectService {
     @Override
     public List<ProjectEntity> getProjects() {
         return projectRepository.findAll();
+    }
+
+    @Override
+    public ProjectEntity getProject(Long id) {
+        Optional<ProjectEntity> optionalProjectEntity = projectRepository.findById(id);
+        return optionalProjectEntity.orElse(null);
     }
 
     @Override

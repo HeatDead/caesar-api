@@ -1,8 +1,9 @@
 package com.vozhov.caesarapi.controller;
 
 import com.vozhov.caesarapi.entity.UserEntity;
-import com.vozhov.caesarapi.model.RoleRequest;
-import com.vozhov.caesarapi.model.UserRequest;
+import com.vozhov.caesarapi.payload.request.AddUserToGroupRequest;
+import com.vozhov.caesarapi.payload.request.RoleRequest;
+import com.vozhov.caesarapi.payload.request.UserRequest;
 import com.vozhov.caesarapi.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +25,11 @@ public class UserController {
     @PostMapping
     public void createUser(@RequestBody UserRequest userRequest) {
         userService.createUser(userRequest.getName(), userRequest.getSurname(), userRequest.getPatronymic(), userRequest.getLogin(), userRequest.getPassword());
+    }
+
+    @PostMapping("/group")
+    public void addGroup(@RequestBody AddUserToGroupRequest request) {
+        userService.addGroup(request.getUserId(), request.getGroupId());
     }
 
     @GetMapping

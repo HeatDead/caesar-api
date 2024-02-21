@@ -1,7 +1,7 @@
 package com.vozhov.caesarapi.controller;
 
 import com.vozhov.caesarapi.entity.TaskEntity;
-import com.vozhov.caesarapi.model.TaskRequest;
+import com.vozhov.caesarapi.payload.request.TaskRequest;
 import com.vozhov.caesarapi.service.TaskService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +19,16 @@ public class TaskController {
     @PostMapping
     public void createTask(@RequestBody TaskRequest taskRequest) {
         taskService.createTask(taskRequest.getName(), taskRequest.getDescription(), taskRequest.getProjectId());
+    }
+
+    @GetMapping("/get")
+    public TaskEntity getTask(@RequestParam Long id) {
+        return taskService.getTask(id);
+    }
+
+    @GetMapping("/project")
+    public List<TaskEntity> getTaskByProject(@RequestParam Long id) {
+        return taskService.getTaskByProject(id);
     }
 
     @GetMapping

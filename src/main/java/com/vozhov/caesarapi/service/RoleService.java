@@ -1,6 +1,6 @@
 package com.vozhov.caesarapi.service;
 
-import com.vozhov.caesarapi.model.RoleFeatures;
+import com.vozhov.caesarapi.payload.request.RoleFeatures;
 
 import java.util.Set;
 

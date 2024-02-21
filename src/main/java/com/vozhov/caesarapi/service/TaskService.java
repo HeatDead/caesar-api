@@ -8,4 +8,6 @@ import java.util.List;
 public interface TaskService {
     void createTask(String name, String description, Long projectId);
     List<TaskEntity> getTasks();
+    List<TaskEntity> getTaskByProject(Long id);
+    TaskEntity getTask(Long id);
 }
