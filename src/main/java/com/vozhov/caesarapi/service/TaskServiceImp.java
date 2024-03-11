@@ -16,18 +16,35 @@ public class TaskServiceImp implements TaskService {
 
     private final TaskRepository taskRepository;
     private final ProjectRepository projectRepository;
+    private final DeskService deskService;
+
     @Override
-    public void createTask(String name, String description, Long projectId) {
+    public void createTask(String name, Long projectId) {
         TaskEntity te = new TaskEntity();
         te.setName(name);
-        te.setDescription(description);
 
         Optional<ProjectEntity> pe = projectRepository.findById(projectId);
         if(pe.isPresent())
             te.setProjectEntity(pe.get());
         else return;
-
         taskRepository.save(te);
+    }
+
+    @Override
+    public void createTaskToPanel(String name, Long projectId, Long panelId) {
+        TaskEntity te = new TaskEntity();
+        te.setName(name);
+
+        Optional<ProjectEntity> pe = projectRepository.findById(projectId);
+        if(pe.isPresent())
+            te.setProjectEntity(pe.get());
+        else return;
+        taskRepository.save(te);
+        taskRepository.flush();
+
+        System.out.println(te.getId() + " " + panelId);
+
+        deskService.addTaskToPanel(te.getId(), panelId);
     }
 
     @Override

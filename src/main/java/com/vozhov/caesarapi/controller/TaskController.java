@@ -18,7 +18,12 @@ public class TaskController {
 
     @PostMapping
     public void createTask(@RequestBody TaskRequest taskRequest) {
-        taskService.createTask(taskRequest.getName(), taskRequest.getDescription(), taskRequest.getProjectId());
+        taskService.createTask(taskRequest.getName(), taskRequest.getProjectId());
+    }
+
+    @PostMapping("/panel")
+    public void createTaskToPanel(@RequestBody TaskRequest taskRequest) {
+        taskService.createTaskToPanel(taskRequest.getName(), taskRequest.getProjectId(), taskRequest.getPanelId());
     }
 
     @GetMapping("/get")

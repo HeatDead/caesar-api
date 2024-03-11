@@ -16,7 +16,6 @@ public class TaskEntity {
 
     @NotBlank
     private String name;
-    @NotBlank
     private String description;
 
     @ManyToOne

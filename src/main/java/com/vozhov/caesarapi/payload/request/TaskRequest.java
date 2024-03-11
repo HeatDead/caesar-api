@@ -9,4 +9,5 @@ public class TaskRequest {
     String description;
 
     Long projectId;
+    Long panelId;
 }
