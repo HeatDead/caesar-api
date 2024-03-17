@@ -10,6 +10,7 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
+@Table(name = "panels")
 public class PanelEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

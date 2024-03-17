@@ -2,9 +2,9 @@ package com.vozhov.caesarapi.controller;
 
 import com.vozhov.caesarapi.entity.DeskEntity;
 import com.vozhov.caesarapi.entity.PanelEntity;
-import com.vozhov.caesarapi.payload.request.AddTaskToPanelRequest;
-import com.vozhov.caesarapi.payload.request.DeskRequest;
-import com.vozhov.caesarapi.payload.request.PanelRequest;
+import com.vozhov.caesarapi.payload.request.desk.AddTaskToPanelRequest;
+import com.vozhov.caesarapi.payload.request.desk.DeskRequest;
+import com.vozhov.caesarapi.payload.request.desk.PanelRequest;
 import com.vozhov.caesarapi.service.DeskService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;

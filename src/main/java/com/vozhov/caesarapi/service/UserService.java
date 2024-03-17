@@ -9,9 +9,9 @@ import java.util.Set;
 public interface UserService {
     void createUser(String name, String surname, String patronymic, String login, String password);
 
-    void addRole(Long userId, Set<Long> roles);
+    void addRole(String userId, RoleEntity role);
 
     List<UserEntity> getUsers();
 
-    void addGroup(Long userId, Long groupId);
+    void addGroup(String userId, Long groupId);
 }

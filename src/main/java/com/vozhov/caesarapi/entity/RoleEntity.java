@@ -1,6 +1,6 @@
 package com.vozhov.caesarapi.entity;
 
-import com.vozhov.caesarapi.payload.request.RoleFeatures;
+import com.vozhov.caesarapi.payload.request.user.RoleFeatures;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
@@ -11,6 +11,7 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
+@Table(name = "roles")
 public class RoleEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

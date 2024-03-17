@@ -1,4 +1,4 @@
-package com.vozhov.caesarapi.payload.request;
+package com.vozhov.caesarapi.payload.request.desk;
 
 import lombok.Data;
 

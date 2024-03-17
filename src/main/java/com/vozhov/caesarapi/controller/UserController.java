@@ -1,9 +1,9 @@
 package com.vozhov.caesarapi.controller;
 
 import com.vozhov.caesarapi.entity.UserEntity;
-import com.vozhov.caesarapi.payload.request.AddUserToGroupRequest;
-import com.vozhov.caesarapi.payload.request.RoleRequest;
-import com.vozhov.caesarapi.payload.request.UserRequest;
+import com.vozhov.caesarapi.payload.request.user.AddUserToGroupRequest;
+import com.vozhov.caesarapi.payload.request.user.RoleRequest;
+import com.vozhov.caesarapi.payload.request.user.UserRequest;
 import com.vozhov.caesarapi.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +19,7 @@ public class UserController {
 
     @PostMapping("/role")
     public void addRole(@RequestBody RoleRequest roleRequest) {
-        userService.addRole(roleRequest.getUserId(), roleRequest.getRoles());
+        userService.addRole(roleRequest.getUserId(), roleRequest.getRole());
     }
 
     @PostMapping

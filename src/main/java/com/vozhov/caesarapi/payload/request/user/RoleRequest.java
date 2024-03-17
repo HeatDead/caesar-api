@@ -1,5 +1,6 @@
-package com.vozhov.caesarapi.payload.request;
+package com.vozhov.caesarapi.payload.request.user;
 
+import com.vozhov.caesarapi.entity.RoleEntity;
 import lombok.Data;
 
 import java.util.Set;
@@ -8,7 +9,7 @@ import java.util.Set;
 public class RoleRequest {
     Long id;
     String name;
-    Long userId;
+    String userId;
     Set<RoleFeatures> roleFeatures;
-    Set<Long> roles;
+    RoleEntity role;
 }

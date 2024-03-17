@@ -1,7 +1,7 @@
 package com.vozhov.caesarapi.service;
 
 import com.vozhov.caesarapi.entity.RoleEntity;
-import com.vozhov.caesarapi.payload.request.RoleFeatures;
+import com.vozhov.caesarapi.payload.request.user.RoleFeatures;
 import com.vozhov.caesarapi.repository.RoleRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
