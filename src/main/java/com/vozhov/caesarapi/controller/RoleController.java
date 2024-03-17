@@ -1,6 +1,6 @@
 package com.vozhov.caesarapi.controller;
 
-import com.vozhov.caesarapi.payload.request.RoleRequest;
+import com.vozhov.caesarapi.payload.request.user.RoleRequest;
 import com.vozhov.caesarapi.service.RoleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;

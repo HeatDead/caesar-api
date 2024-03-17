@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 @Service
 @AllArgsConstructor
@@ -21,8 +20,9 @@ public class UserServiceImp implements UserService {
 
     @Override
     public void createUser(String name, String surname, String patronymic, String login, String password) {
-        UserEntity ue = new UserEntity();
-        ue.setLogin(login);
+        UserEntity ue = UserEntity.builder()
+                .build();
+        ue.setUsername(login);
         ue.setName(name);
         ue.setSurname(surname);
         ue.setPatronymic(patronymic);
@@ -32,11 +32,11 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
-    public void addRole(Long userId, Set<Long> roles) {
+    public void addRole(String userId, RoleEntity role) {
         Optional<UserEntity> userEntityOptional = userRepository.findById(userId);
         if(userEntityOptional.isPresent()) {
             UserEntity ue = userEntityOptional.get();
-            ue.setRoles(roles);
+            ue.setRole(role);
             userRepository.save(ue);
         }
     }
@@ -47,7 +47,7 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
-    public void addGroup(Long userId, Long groupId) {
+    public void addGroup(String userId, Long groupId) {
         Optional<UserEntity> userEntityOptional = userRepository.findById(userId);
         Optional<GroupEntity> groupEntityOptional = groupRepository.findById(groupId);
         if(userEntityOptional.isPresent() && groupEntityOptional.isPresent()) {

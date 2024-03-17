@@ -2,8 +2,8 @@ package com.vozhov.caesarapi.service;
 
 import com.vozhov.caesarapi.entity.DeskEntity;
 import com.vozhov.caesarapi.entity.PanelEntity;
-import com.vozhov.caesarapi.payload.request.DeskRequest;
-import com.vozhov.caesarapi.payload.request.PanelRequest;
+import com.vozhov.caesarapi.payload.request.desk.DeskRequest;
+import com.vozhov.caesarapi.payload.request.desk.PanelRequest;
 
 import java.util.List;
 

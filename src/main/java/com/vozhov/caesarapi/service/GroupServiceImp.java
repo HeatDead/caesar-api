@@ -1,7 +1,7 @@
 package com.vozhov.caesarapi.service;
 
 import com.vozhov.caesarapi.entity.GroupEntity;
-import com.vozhov.caesarapi.payload.request.GroupRequest;
+import com.vozhov.caesarapi.payload.request.user.GroupRequest;
 import com.vozhov.caesarapi.repository.GroupRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;

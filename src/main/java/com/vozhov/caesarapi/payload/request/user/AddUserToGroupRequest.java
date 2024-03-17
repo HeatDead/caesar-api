@@ -1,9 +1,9 @@
-package com.vozhov.caesarapi.payload.request;
+package com.vozhov.caesarapi.payload.request.user;
 
 import lombok.Data;
 
 @Data
 public class AddUserToGroupRequest {
-    Long userId;
+    String userId;
     Long groupId;
 }

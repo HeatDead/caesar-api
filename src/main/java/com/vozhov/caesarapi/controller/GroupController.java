@@ -1,7 +1,7 @@
 package com.vozhov.caesarapi.controller;
 
 import com.vozhov.caesarapi.entity.GroupEntity;
-import com.vozhov.caesarapi.payload.request.GroupRequest;
+import com.vozhov.caesarapi.payload.request.user.GroupRequest;
 import com.vozhov.caesarapi.service.GroupService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
