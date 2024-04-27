@@ -1,5 +1,6 @@
 package com.vozhov.caesarapi.service;
 
+import com.vozhov.caesarapi.config.JwtService;
 import com.vozhov.caesarapi.entity.GroupEntity;
 import com.vozhov.caesarapi.entity.RoleEntity;
 import com.vozhov.caesarapi.entity.UserEntity;
@@ -17,6 +18,7 @@ public class UserServiceImp implements UserService {
 
     private final UserRepository userRepository;
     private final GroupRepository groupRepository;
+    private final JwtService jwtService;
 
     @Override
     public void createUser(String name, String surname, String patronymic, String login, String password) {
@@ -55,5 +57,19 @@ public class UserServiceImp implements UserService {
             ue.getGroups().add(groupEntityOptional.get());
             userRepository.save(ue);
         }
+    }
+
+    @Override
+    public UserEntity getMyDetails(String authHeader) {
+        String jwt = authHeader.substring(7);
+        String username = jwtService.extractUsername(jwt);
+        Optional<UserEntity> userEntityOptional = userRepository.findById(username);
+        return userEntityOptional.orElse(null);
+    }
+
+    @Override
+    public UserEntity getUserByUsername(String username) {
+        Optional<UserEntity> userEntityOptional = userRepository.findById(username);
+        return userEntityOptional.orElse(null);
     }
 }

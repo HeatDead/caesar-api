@@ -15,4 +15,5 @@ public class RegisterRequest {
     private String surname;
     private String patronymic;
     private String password;
+    private Long role;
 }

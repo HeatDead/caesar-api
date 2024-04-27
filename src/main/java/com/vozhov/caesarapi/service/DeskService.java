@@ -12,8 +12,10 @@ public interface DeskService {
     List<DeskEntity> getDesks();
     List<DeskEntity> getDesksByProject(Long id);
     void createDesk(DeskRequest request);
+    void editDesk(DeskRequest request);
     List<PanelEntity> getPanels(Long deskId);
     void createPanel(PanelRequest request);
+    void editPanel(PanelRequest request);
     void addTaskToPanel(Long taskId, Long panelId);
     void removeTaskFromPanel(Long taskId, Long panelId);
 }

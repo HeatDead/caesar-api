@@ -22,6 +22,16 @@ public class UserController {
         userService.addRole(roleRequest.getUserId(), roleRequest.getRole());
     }
 
+    @GetMapping("/details")
+    public UserEntity getMyDetails(@RequestHeader String authorization) {
+        return userService.getMyDetails(authorization);
+    }
+
+    @GetMapping("/get")
+    public UserEntity getUserByUsername(@RequestParam String username) {
+        return userService.getUserByUsername(username);
+    }
+
     @PostMapping
     public void createUser(@RequestBody UserRequest userRequest) {
         userService.createUser(userRequest.getName(), userRequest.getSurname(), userRequest.getPatronymic(), userRequest.getLogin(), userRequest.getPassword());

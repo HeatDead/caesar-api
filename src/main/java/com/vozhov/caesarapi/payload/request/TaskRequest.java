@@ -2,12 +2,20 @@ package com.vozhov.caesarapi.payload.request;
 
 import lombok.Data;
 
+import java.util.Date;
+
 @Data
 public class TaskRequest {
-    Long id;
-    String name;
-    String description;
+    private Long id;
+    private String name;
+    private String description;
 
-    Long projectId;
-    Long panelId;
+    private Long projectId;
+    private Long panelId;
+
+    private String author;
+    private String assignee;
+
+    private Date startDate;
+    private Date deadline;
 }
