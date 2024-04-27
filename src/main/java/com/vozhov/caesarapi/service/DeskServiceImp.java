@@ -54,6 +54,17 @@ public class DeskServiceImp implements DeskService{
     }
 
     @Override
+    public void editDesk(DeskRequest request) {
+        Optional<DeskEntity> deo = deskRepository.findById(request.getId());
+        if(deo.isPresent()) {
+            DeskEntity de = deo.get();
+            de.setName(request.getName());
+
+            deskRepository.save(de);
+        }
+    }
+
+    @Override
     public List<PanelEntity> getPanels(Long deskId) {
         Optional<DeskEntity> op = deskRepository.findById(deskId);
         return op.map(panelRepository::findAllByDeskEntity).orElse(null);
@@ -65,6 +76,17 @@ public class DeskServiceImp implements DeskService{
         if(de.isPresent()) {
             PanelEntity pe = new PanelEntity();
             pe.setDeskEntity(de.get());
+            pe.setName(request.getName());
+
+            panelRepository.save(pe);
+        }
+    }
+
+    @Override
+    public void editPanel(PanelRequest request) {
+        Optional<PanelEntity> op = panelRepository.findById(request.getId());
+        if(op.isPresent()) {
+            PanelEntity pe = op.get();
             pe.setName(request.getName());
 
             panelRepository.save(pe);

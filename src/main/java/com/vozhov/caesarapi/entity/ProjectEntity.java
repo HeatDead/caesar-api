@@ -6,6 +6,7 @@ import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Date;
 import java.util.List;
 
 @Getter
@@ -24,6 +25,15 @@ public class ProjectEntity {
 
     @OneToMany
     private List<UserEntity> employees;
+
+    private ProjectStatus status;
+    private Date startDate;
+    private Date deadline;
+
+    @ManyToOne
+    private UserEntity author;
+    @ManyToOne
+    private UserEntity responsible;
 
     public void addEmployee(UserEntity employee) {
         employees.add(employee);

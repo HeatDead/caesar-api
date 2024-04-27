@@ -10,6 +10,6 @@ public class RoleRequest {
     Long id;
     String name;
     String userId;
-    Set<RoleFeatures> roleFeatures;
+    Set<Permission> permissions;
     RoleEntity role;
 }

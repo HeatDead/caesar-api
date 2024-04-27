@@ -6,6 +6,8 @@ import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Date;
+
 @Getter
 @Setter
 @Entity
@@ -17,7 +19,16 @@ public class TaskEntity {
 
     @NotBlank
     private String name;
+    @Size(max = 2048)
     private String description;
+
+    private Date startDate;
+    private Date deadline;
+
+    @ManyToOne
+    private UserEntity author;
+    @ManyToOne
+    private UserEntity assignee;
 
     @ManyToOne
     private ProjectEntity projectEntity;

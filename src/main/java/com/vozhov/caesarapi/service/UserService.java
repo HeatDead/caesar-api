@@ -14,4 +14,6 @@ public interface UserService {
     List<UserEntity> getUsers();
 
     void addGroup(String userId, Long groupId);
+    UserEntity getMyDetails(String token);
+    UserEntity getUserByUsername(String username);
 }
