@@ -1,5 +1,6 @@
 package com.vozhov.caesarapi.payload.request;
 
+import com.vozhov.caesarapi.entity.TaskStatus;
 import lombok.Data;
 
 import java.util.Date;
@@ -12,6 +13,8 @@ public class TaskRequest {
 
     private Long projectId;
     private Long panelId;
+
+    private TaskStatus status;
 
     private String author;
     private String assignee;

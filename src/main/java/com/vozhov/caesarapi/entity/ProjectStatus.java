@@ -1,5 +1,8 @@
 package com.vozhov.caesarapi.entity;
 
 public enum ProjectStatus {
-    NEW
+    NEW,
+    IN_WORK,
+    COMPLETED,
+    CANCELED
 }

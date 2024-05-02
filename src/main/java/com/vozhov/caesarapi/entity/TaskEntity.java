@@ -22,6 +22,8 @@ public class TaskEntity {
     @Size(max = 2048)
     private String description;
 
+    private TaskStatus status;
+
     private Date startDate;
     private Date deadline;
 

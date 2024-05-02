@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 @Getter
@@ -21,6 +22,7 @@ public class ProjectEntity {
     @NotBlank
     @Size(max = 120, min = 2)
     private String name;
+    @Size(max = 4096)
     private String description;
 
     @OneToMany
@@ -37,5 +39,9 @@ public class ProjectEntity {
 
     public void addEmployee(UserEntity employee) {
         employees.add(employee);
+    }
+
+    public void clearEmployee() {
+        employees.clear();
     }
 }

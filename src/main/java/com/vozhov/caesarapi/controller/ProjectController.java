@@ -1,6 +1,7 @@
 package com.vozhov.caesarapi.controller;
 
 import com.vozhov.caesarapi.entity.ProjectEntity;
+import com.vozhov.caesarapi.entity.UserEntity;
 import com.vozhov.caesarapi.payload.request.ProjectRequest;
 import com.vozhov.caesarapi.service.ProjectService;
 import lombok.RequiredArgsConstructor;
@@ -36,5 +37,15 @@ public class ProjectController {
     @GetMapping
     public ProjectEntity getProject(@RequestParam Long id) {
         return projectService.getProject(id);
+    }
+
+    @GetMapping("/employees")
+    public List<UserEntity> getEmployees(@RequestParam Long id) {
+        return projectService.getEmployees(id);
+    }
+
+    @PostMapping("/employees")
+    public void addEmployees(@RequestBody List<String> employees, @RequestParam Long id) {
+        projectService.addEmployees(id, employees);
     }
 }

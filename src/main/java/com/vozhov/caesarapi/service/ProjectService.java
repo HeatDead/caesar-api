@@ -12,6 +12,7 @@ public interface ProjectService {
     ProjectEntity getProject(Long id);
     void editProject(ProjectRequest projectRequest);
 
-    void addEmployees(ProjectEntity project, List<UserEntity> employees);
-    void addEmployee(ProjectEntity project, UserEntity employee);
+    void addEmployees(Long id, List<String> employees);
+    void addEmployee(ProjectEntity project, String employee);
+    List<UserEntity> getEmployees(Long id);
 }

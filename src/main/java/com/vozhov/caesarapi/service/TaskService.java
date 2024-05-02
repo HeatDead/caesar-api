@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface TaskService {
     void createTask(TaskRequest taskRequest);
-    void createTaskToPanel(String name, Long projectId, Long panelId);
+    void createTaskToPanel(TaskRequest taskRequest);
     List<TaskEntity> getTasks();
     List<TaskEntity> getTaskByProject(Long id);
     TaskEntity getTask(Long id);

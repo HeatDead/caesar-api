@@ -4,9 +4,13 @@ import com.vozhov.caesarapi.config.JwtService;
 import com.vozhov.caesarapi.entity.GroupEntity;
 import com.vozhov.caesarapi.entity.RoleEntity;
 import com.vozhov.caesarapi.entity.UserEntity;
+import com.vozhov.caesarapi.payload.request.auth.RegisterRequest;
+import com.vozhov.caesarapi.payload.request.user.UserRequest;
 import com.vozhov.caesarapi.repository.GroupRepository;
+import com.vozhov.caesarapi.repository.RoleRepository;
 import com.vozhov.caesarapi.repository.UserRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,7 +22,9 @@ public class UserServiceImp implements UserService {
 
     private final UserRepository userRepository;
     private final GroupRepository groupRepository;
+    private final RoleRepository roleRepository;
     private final JwtService jwtService;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public void createUser(String name, String surname, String patronymic, String login, String password) {
@@ -31,6 +37,32 @@ public class UserServiceImp implements UserService {
         ue.setPassword(password);
 
         userRepository.save(ue);
+    }
+
+    @Override
+    public void editUser(RegisterRequest request) {
+        Optional<UserEntity> uo = userRepository.findByUsername(request.getUsername());
+        Optional<RoleEntity> ro = roleRepository.findById(request.getRole());
+        if(uo.isPresent() && ro.isPresent()) {
+            UserEntity ue = uo.get();
+            ue.setName(request.getName());
+            ue.setSurname(request.getSurname());
+            ue.setPatronymic(request.getPatronymic());
+            ue.setRole(ro.get());
+
+            userRepository.save(ue);
+        }
+    }
+
+    @Override
+    public void editPassword(RegisterRequest request) {
+        Optional<UserEntity> uo = userRepository.findByUsername(request.getUsername());
+        if(uo.isPresent()) {
+            UserEntity ue = uo.get();
+            ue.setPassword(passwordEncoder.encode(request.getPassword()));
+
+            userRepository.save(ue);
+        }
     }
 
     @Override

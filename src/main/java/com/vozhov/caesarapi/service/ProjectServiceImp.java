@@ -48,23 +48,53 @@ public class ProjectServiceImp implements ProjectService {
         Optional<ProjectEntity> optionalProjectEntity = projectRepository.findById(projectRequest.getId());
         if (optionalProjectEntity.isPresent()) {
             ProjectEntity pe = optionalProjectEntity.get();
+            if (projectRequest.getResponsible() != null) {
+                Optional<UserEntity> optionalUserEntity = userRepository.findByUsername(projectRequest.getResponsible());
+                if(optionalUserEntity.isPresent()) {
+                    pe.setResponsible(optionalUserEntity.get());
+                } else return;
+            } else pe.setResponsible(null);
             pe.setName(projectRequest.getName());
             pe.setDescription(projectRequest.getDescription());
+            pe.setStartDate(projectRequest.getStartDate());
+            pe.setDeadline(projectRequest.getDeadline());
 
             projectRepository.save(pe);
         }
     }
 
     @Override
-    public void addEmployees(ProjectEntity project, List<UserEntity> employees) {
-        for (UserEntity u : employees) {
-            addEmployee(project, u);
+    public void addEmployees(Long id, List<String> employees) {
+        Optional<ProjectEntity> optionalProjectEntity = projectRepository.findById(id);
+        if (optionalProjectEntity.isPresent()) {
+            ProjectEntity project = optionalProjectEntity.get();
+            project.clearEmployee();
+            projectRepository.save(project);
+            for (String u : employees) {
+                addEmployee(project, u);
+            }
         }
     }
 
     @Override
-    public void addEmployee(ProjectEntity project, UserEntity employee) {
-        project.addEmployee(employee);
-        projectRepository.save(project);
+    public void addEmployee(ProjectEntity project, String employee) {
+        Optional<UserEntity> uo = userRepository.findByUsername(employee);
+        if(uo.isPresent()) {
+            UserEntity ue = uo.get();
+            if (!project.getEmployees().contains(ue)) {
+                project.addEmployee(ue);
+                projectRepository.save(project);
+            }
+        }
+    }
+
+    @Override
+    public List<UserEntity> getEmployees(Long id) {
+        Optional<ProjectEntity> optionalProjectEntity = projectRepository.findById(id);
+        if (optionalProjectEntity.isPresent()) {
+            ProjectEntity pe = optionalProjectEntity.get();
+            return pe.getEmployees();
+        }
+        return null;
     }
 }

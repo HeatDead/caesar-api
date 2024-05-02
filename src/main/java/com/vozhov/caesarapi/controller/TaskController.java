@@ -26,7 +26,7 @@ public class TaskController {
     @PostMapping("/panel")
     @PreAuthorize("hasAuthority('task:create')")
     public void createTaskToPanel(@RequestBody TaskRequest taskRequest) {
-        taskService.createTaskToPanel(taskRequest.getName(), taskRequest.getProjectId(), taskRequest.getPanelId());
+        taskService.createTaskToPanel(taskRequest);
     }
 
     @PostMapping("/edit")

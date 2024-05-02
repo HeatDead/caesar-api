@@ -1,6 +1,7 @@
 package com.vozhov.caesarapi.controller;
 
 import com.vozhov.caesarapi.entity.UserEntity;
+import com.vozhov.caesarapi.payload.request.auth.RegisterRequest;
 import com.vozhov.caesarapi.payload.request.user.AddUserToGroupRequest;
 import com.vozhov.caesarapi.payload.request.user.RoleRequest;
 import com.vozhov.caesarapi.payload.request.user.UserRequest;
@@ -25,6 +26,16 @@ public class UserController {
     @GetMapping("/details")
     public UserEntity getMyDetails(@RequestHeader String authorization) {
         return userService.getMyDetails(authorization);
+    }
+
+    @PostMapping("/edit")
+    public void editUser(@RequestBody RegisterRequest request) {
+        userService.editUser(request);
+    }
+
+    @PostMapping("/password")
+    public void editPassword(@RequestBody RegisterRequest request) {
+        userService.editPassword(request);
     }
 
     @GetMapping("/get")

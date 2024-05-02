@@ -2,6 +2,7 @@ package com.vozhov.caesarapi.service;
 
 import com.vozhov.caesarapi.entity.ProjectEntity;
 import com.vozhov.caesarapi.entity.TaskEntity;
+import com.vozhov.caesarapi.entity.TaskStatus;
 import com.vozhov.caesarapi.entity.UserEntity;
 import com.vozhov.caesarapi.payload.request.TaskRequest;
 import com.vozhov.caesarapi.repository.ProjectRepository;
@@ -31,6 +32,7 @@ public class TaskServiceImp implements TaskService {
             TaskEntity te = new TaskEntity();
             te.setName(taskRequest.getName());
             te.setAuthor(uo.get());
+            te.setStatus(TaskStatus.OPENED);
 
             te.setProjectEntity(pe.get());
             taskRepository.save(te);
@@ -38,20 +40,24 @@ public class TaskServiceImp implements TaskService {
     }
 
     @Override
-    public void createTaskToPanel(String name, Long projectId, Long panelId) {
-        TaskEntity te = new TaskEntity();
-        te.setName(name);
+    public void createTaskToPanel(TaskRequest taskRequest) {
+        Optional<UserEntity> uo = userRepository.findByUsername(taskRequest.getAuthor());
+        Optional<ProjectEntity> pe = projectRepository.findById(taskRequest.getProjectId());
 
-        Optional<ProjectEntity> pe = projectRepository.findById(projectId);
-        if(pe.isPresent())
+        if(uo.isPresent() && pe.isPresent()) {
+            TaskEntity te = new TaskEntity();
+            te.setName(taskRequest.getName());
+            te.setAuthor(uo.get());
+            te.setStatus(TaskStatus.OPENED);
+
             te.setProjectEntity(pe.get());
-        else return;
-        taskRepository.save(te);
-        taskRepository.flush();
+            taskRepository.save(te);
+            taskRepository.flush();
 
-        System.out.println(te.getId() + " " + panelId);
+            System.out.println(te.getId() + " " + taskRequest.getPanelId());
 
-        deskService.addTaskToPanel(te.getId(), panelId);
+            deskService.addTaskToPanel(te.getId(), taskRequest.getPanelId());
+        }
     }
 
     @Override
@@ -78,6 +84,7 @@ public class TaskServiceImp implements TaskService {
             TaskEntity t = te.get();
             t.setName(request.getName());
             t.setDescription(request.getDescription());
+            t.setStatus(request.getStatus());
 
             if(request.getAssignee() != null) {
                 Optional<UserEntity> uo = userRepository.findByUsername(request.getAssignee());
