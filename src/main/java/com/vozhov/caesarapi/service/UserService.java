@@ -20,4 +20,8 @@ public interface UserService {
     void addGroup(String userId, Long groupId);
     UserEntity getMyDetails(String token);
     UserEntity getUserByUsername(String username);
+
+    void blockUser(String username);
+
+    void unblockUser(String username);
 }

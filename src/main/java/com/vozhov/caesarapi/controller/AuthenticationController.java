@@ -4,6 +4,7 @@ import com.vozhov.caesarapi.payload.request.auth.AuthenticationRequest;
 import com.vozhov.caesarapi.payload.request.auth.RegisterRequest;
 import com.vozhov.caesarapi.payload.response.AuthenticationResponse;
 import com.vozhov.caesarapi.service.AuthenticationService;
+import com.vozhov.caesarapi.service.AuthenticationServiceImp;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,16 +19,12 @@ public class AuthenticationController {
     private final AuthenticationService authenticationService;
 
     @PostMapping("/register")
-    public void register(
-            @RequestBody RegisterRequest request
-    ) {
-        authenticationService.register(request);
+    public ResponseEntity<?> register(@RequestBody RegisterRequest request) {
+         return authenticationService.register(request);
     }
 
     @PostMapping("/authenticate")
-    public ResponseEntity<AuthenticationResponse> authenticate(
-            @RequestBody AuthenticationRequest request
-    ) {
-        return ResponseEntity.ok(authenticationService.authenticate(request));
+    public ResponseEntity<AuthenticationResponse> authenticate(@RequestBody AuthenticationRequest request) {
+        return authenticationService.authenticate(request);
     }
 }

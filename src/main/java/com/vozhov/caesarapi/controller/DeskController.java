@@ -2,6 +2,7 @@ package com.vozhov.caesarapi.controller;
 
 import com.vozhov.caesarapi.entity.DeskEntity;
 import com.vozhov.caesarapi.entity.PanelEntity;
+import com.vozhov.caesarapi.entity.TaskStatus;
 import com.vozhov.caesarapi.payload.request.desk.AddTaskToPanelRequest;
 import com.vozhov.caesarapi.payload.request.desk.DeskRequest;
 import com.vozhov.caesarapi.payload.request.desk.PanelRequest;
@@ -33,6 +34,11 @@ public class DeskController {
         return deskService.getDesk(id);
     }
 
+    @GetMapping("/statuses")
+    public List<TaskStatus> getDeskAvailableStatuses(@RequestParam Long id) {
+        return deskService.getAvailableStatuses(id);
+    }
+
     @PostMapping
     @PreAuthorize("hasAuthority('desk:create')")
     public void createDesk(@RequestBody DeskRequest request) {
@@ -48,7 +54,6 @@ public class DeskController {
     @PostMapping("/panel")
     @PreAuthorize("hasAuthority('desk:update')")
     public void createPanel(@RequestBody PanelRequest panelRequest) {
-        System.out.println(panelRequest);
         deskService.createPanel(panelRequest);
     }
 

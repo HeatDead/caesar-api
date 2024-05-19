@@ -13,8 +13,10 @@ import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 @AllArgsConstructor
@@ -49,16 +51,32 @@ public class UserServiceImp implements UserService {
             ue.setSurname(request.getSurname());
             ue.setPatronymic(request.getPatronymic());
             ue.setRole(ro.get());
+            ue.clearGroups();
+            ue.setGroups(addGroups(request.getGroups()));
 
             userRepository.save(ue);
         }
     }
 
+    private Set<GroupEntity> addGroups(List<Long> groups) {
+        Set<GroupEntity> groupEntities = new HashSet<>();
+        if (groups == null) return groupEntities;
+        for (Long id : groups) {
+            Optional<GroupEntity> groupEntityOptional = groupRepository.findById(id);
+            groupEntityOptional.ifPresent(groupEntities::add);
+        }
+
+        return groupEntities;
+    }
+
     @Override
     public void editPassword(RegisterRequest request) {
         Optional<UserEntity> uo = userRepository.findByUsername(request.getUsername());
+        System.out.println(request.getUsername());
+        System.out.println(request.getPassword());
         if(uo.isPresent()) {
             UserEntity ue = uo.get();
+            System.out.println(request.getPassword());
             ue.setPassword(passwordEncoder.encode(request.getPassword()));
 
             userRepository.save(ue);
@@ -103,5 +121,27 @@ public class UserServiceImp implements UserService {
     public UserEntity getUserByUsername(String username) {
         Optional<UserEntity> userEntityOptional = userRepository.findById(username);
         return userEntityOptional.orElse(null);
+    }
+
+    @Override
+    public void blockUser(String username) {
+        Optional<UserEntity> userEntityOptional = userRepository.findById(username);
+        if (userEntityOptional.isPresent()) {
+            UserEntity ue = userEntityOptional.get();
+            ue.setDisabled(true);
+
+            userRepository.save(ue);
+        }
+    }
+
+    @Override
+    public void unblockUser(String username) {
+        Optional<UserEntity> userEntityOptional = userRepository.findById(username);
+        if (userEntityOptional.isPresent()) {
+            UserEntity ue = userEntityOptional.get();
+            ue.setDisabled(false);
+
+            userRepository.save(ue);
+        }
     }
 }

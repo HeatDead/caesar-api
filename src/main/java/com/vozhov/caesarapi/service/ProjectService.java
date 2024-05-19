@@ -8,6 +8,7 @@ import java.util.List;
 
 public interface ProjectService {
     void createProject(ProjectRequest projectRequest);
+    void deleteProject(Long id);
     List<ProjectEntity> getProjects();
     ProjectEntity getProject(Long id);
     void editProject(ProjectRequest projectRequest);

@@ -44,6 +44,11 @@ public class ProjectController {
         return projectService.getEmployees(id);
     }
 
+    @DeleteMapping("/delete")
+    public void deleteProject(@RequestParam Long id) {
+        projectService.deleteProject(id);
+    }
+
     @PostMapping("/employees")
     public void addEmployees(@RequestBody List<String> employees, @RequestParam Long id) {
         projectService.addEmployees(id, employees);

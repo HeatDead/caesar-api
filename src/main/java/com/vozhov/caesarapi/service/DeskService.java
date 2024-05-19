@@ -2,6 +2,7 @@ package com.vozhov.caesarapi.service;
 
 import com.vozhov.caesarapi.entity.DeskEntity;
 import com.vozhov.caesarapi.entity.PanelEntity;
+import com.vozhov.caesarapi.entity.TaskStatus;
 import com.vozhov.caesarapi.payload.request.desk.DeskRequest;
 import com.vozhov.caesarapi.payload.request.desk.PanelRequest;
 
@@ -18,4 +19,5 @@ public interface DeskService {
     void editPanel(PanelRequest request);
     void addTaskToPanel(Long taskId, Long panelId);
     void removeTaskFromPanel(Long taskId, Long panelId);
+    List<TaskStatus> getAvailableStatuses(Long deskId);
 }

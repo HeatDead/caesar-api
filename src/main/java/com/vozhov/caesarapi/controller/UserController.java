@@ -38,6 +38,16 @@ public class UserController {
         userService.editPassword(request);
     }
 
+    @PostMapping("/block")
+    public void blockUser(@RequestParam String username) {
+        userService.blockUser(username);
+    }
+
+    @PostMapping("/unblock")
+    public void unblockUser(@RequestParam String username) {
+        userService.unblockUser(username);
+    }
+
     @GetMapping("/get")
     public UserEntity getUserByUsername(@RequestParam String username) {
         return userService.getUserByUsername(username);

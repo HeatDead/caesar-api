@@ -5,6 +5,7 @@ import com.vozhov.caesarapi.payload.request.user.Permission;
 import com.vozhov.caesarapi.payload.request.user.RoleRequest;
 import com.vozhov.caesarapi.service.RoleService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,6 +27,11 @@ public class RoleController {
     @PostMapping("/edit")
     public void editRole(@RequestBody RoleRequest roleRequest) {
         roleService.editRole(roleRequest);
+    }
+
+    @DeleteMapping("/delete")
+    public ResponseEntity<?> deleteRole(@RequestParam Long id) {
+        return roleService.deleteRole(id);
     }
 
     @GetMapping("get")

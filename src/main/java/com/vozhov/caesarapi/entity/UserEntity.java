@@ -45,6 +45,12 @@ public class UserEntity implements UserDetails {
     @ManyToMany
     private Set<GroupEntity> groups = new HashSet<>();
 
+    private boolean isDisabled = false;
+
+    public void clearGroups() {
+        groups.clear();
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return role.getAuthorities();
@@ -77,6 +83,6 @@ public class UserEntity implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return !isDisabled;
     }
 }

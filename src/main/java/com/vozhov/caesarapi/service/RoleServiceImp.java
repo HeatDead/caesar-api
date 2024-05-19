@@ -4,7 +4,10 @@ import com.vozhov.caesarapi.entity.RoleEntity;
 import com.vozhov.caesarapi.payload.request.user.Permission;
 import com.vozhov.caesarapi.payload.request.user.RoleRequest;
 import com.vozhov.caesarapi.repository.RoleRepository;
+import com.vozhov.caesarapi.repository.UserRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,6 +19,7 @@ import java.util.Set;
 public class RoleServiceImp implements RoleService{
 
     private final RoleRepository roleRepository;
+    private final UserRepository userRepository;
 
     @Override
     public void createRole(String name) {
@@ -47,5 +51,18 @@ public class RoleServiceImp implements RoleService{
     public RoleEntity getRole(Long id) {
         Optional<RoleEntity> ro = roleRepository.findById(id);
         return ro.orElse(null);
+    }
+
+    @Override
+    public ResponseEntity<?> deleteRole(Long id) {
+        Optional<RoleEntity> reo = roleRepository.findById(id);
+        if (reo.isPresent()) {
+            if (!userRepository.findByRole(reo.get()).isEmpty())
+                return new ResponseEntity<>(HttpStatus.CONFLICT);
+
+            roleRepository.delete(reo.get());
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 }

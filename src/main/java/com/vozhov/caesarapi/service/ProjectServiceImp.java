@@ -33,6 +33,12 @@ public class ProjectServiceImp implements ProjectService {
     }
 
     @Override
+    public void deleteProject(Long id) {
+        Optional<ProjectEntity> optionalProjectEntity = projectRepository.findById(id);
+        optionalProjectEntity.ifPresent(projectRepository::delete);
+    }
+
+    @Override
     public List<ProjectEntity> getProjects() {
         return projectRepository.findAll();
     }
@@ -55,6 +61,7 @@ public class ProjectServiceImp implements ProjectService {
                 } else return;
             } else pe.setResponsible(null);
             pe.setName(projectRequest.getName());
+            pe.setStatus(projectRequest.getStatus());
             pe.setDescription(projectRequest.getDescription());
             pe.setStartDate(projectRequest.getStartDate());
             pe.setDeadline(projectRequest.getDeadline());

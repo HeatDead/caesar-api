@@ -5,6 +5,8 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import java.util.Date;
 
@@ -23,15 +25,25 @@ public class TaskEntity {
     private String description;
 
     private TaskStatus status;
+    private TaskType type;
+    private TaskPriority priority;
 
     private Date startDate;
     private Date deadline;
+    @Temporal(TemporalType.DATE)
+    private Date finishedDate;
+
+    private int difficulty = 0;
 
     @ManyToOne
     private UserEntity author;
     @ManyToOne
     private UserEntity assignee;
+    @ManyToOne
+    private GroupEntity group;
 
     @ManyToOne
+    @JoinColumn(name = "projectEntity_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private ProjectEntity projectEntity;
 }
