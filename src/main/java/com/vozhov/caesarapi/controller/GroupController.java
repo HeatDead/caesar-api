@@ -4,6 +4,7 @@ import com.vozhov.caesarapi.entity.GroupEntity;
 import com.vozhov.caesarapi.payload.request.user.GroupRequest;
 import com.vozhov.caesarapi.service.GroupService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,6 +22,7 @@ public class GroupController {
     }
 
     @PostMapping
+    @PreAuthorize("hasAuthority('administrator')")
     public void addGroup(@RequestBody GroupRequest groupRequest) {
         groupService.addGroup(groupRequest);
     }

@@ -14,7 +14,8 @@ public enum Permission {
     TASK_CREATE("task:create"),
     DESK_UPDATE("desk:update"),
     DESK_DELETE("desk:delete"),
-    DESK_CREATE("desk:create");
+    DESK_CREATE("desk:create"),
+    ADMINISTRATOR("administrator");
 
     private final String permission;
 }

@@ -33,6 +33,7 @@ public class TaskController {
     }
 
     @DeleteMapping("/delete")
+    @PreAuthorize("hasAuthority('task:delete')")
     public void deleteTask(@RequestParam Long id) {
         taskService.deleteTask(id);
     }

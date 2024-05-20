@@ -147,4 +147,29 @@ public class DeskServiceImp implements DeskService{
         }
         return statuses;
     }
+
+    @Override
+    public void deletePanel(Long id) {
+        Optional<PanelEntity> peo = panelRepository.findById(id);
+        if (peo.isPresent()) {
+            Optional<DeskEntity> deo = deskRepository.findById(peo.get().getDeskId());
+            if (deo.isPresent()) {
+                deo.get().deletePanel(peo.get().getStatus());
+                deskRepository.save(deo.get());
+                panelRepository.delete(peo.get());
+            }
+        }
+    }
+
+    @Override
+    public void deleteDesk(Long id) {
+        Optional<DeskEntity> deo = deskRepository.findById(id);
+        if (deo.isPresent()) {
+            DeskEntity de = deo.get();
+            List<PanelEntity> panels = getPanels(de.getId());
+            for (PanelEntity panel : panels)
+                deletePanel(panel.getId());
+            deskRepository.delete(de);
+        }
+    }
 }

@@ -45,11 +45,13 @@ public class ProjectController {
     }
 
     @DeleteMapping("/delete")
+    @PreAuthorize("hasAuthority('project:delete')")
     public void deleteProject(@RequestParam Long id) {
         projectService.deleteProject(id);
     }
 
     @PostMapping("/employees")
+    @PreAuthorize("hasAuthority('project:update')")
     public void addEmployees(@RequestBody List<String> employees, @RequestParam Long id) {
         projectService.addEmployees(id, employees);
     }

@@ -7,6 +7,7 @@ import com.vozhov.caesarapi.payload.request.user.RoleRequest;
 import com.vozhov.caesarapi.payload.request.user.UserRequest;
 import com.vozhov.caesarapi.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,6 +20,7 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping("/role")
+    @PreAuthorize("hasAuthority('administrator')")
     public void addRole(@RequestBody RoleRequest roleRequest) {
         userService.addRole(roleRequest.getUserId(), roleRequest.getRole());
     }
@@ -29,21 +31,25 @@ public class UserController {
     }
 
     @PostMapping("/edit")
+    @PreAuthorize("hasAuthority('administrator')")
     public void editUser(@RequestBody RegisterRequest request) {
         userService.editUser(request);
     }
 
     @PostMapping("/password")
+    @PreAuthorize("hasAuthority('administrator')")
     public void editPassword(@RequestBody RegisterRequest request) {
         userService.editPassword(request);
     }
 
     @PostMapping("/block")
+    @PreAuthorize("hasAuthority('administrator')")
     public void blockUser(@RequestParam String username) {
         userService.blockUser(username);
     }
 
     @PostMapping("/unblock")
+    @PreAuthorize("hasAuthority('administrator')")
     public void unblockUser(@RequestParam String username) {
         userService.unblockUser(username);
     }
@@ -54,11 +60,13 @@ public class UserController {
     }
 
     @PostMapping
+    @PreAuthorize("hasAuthority('administrator')")
     public void createUser(@RequestBody UserRequest userRequest) {
         userService.createUser(userRequest.getName(), userRequest.getSurname(), userRequest.getPatronymic(), userRequest.getLogin(), userRequest.getPassword());
     }
 
     @PostMapping("/group")
+    @PreAuthorize("hasAuthority('administrator')")
     public void addGroup(@RequestBody AddUserToGroupRequest request) {
         userService.addGroup(request.getUserId(), request.getGroupId());
     }

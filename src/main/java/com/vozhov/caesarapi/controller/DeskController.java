@@ -58,15 +58,27 @@ public class DeskController {
     }
 
     @PostMapping("/panel/task")
-    @PreAuthorize("hasAuthority('desk:update')")
+    @PreAuthorize("hasAuthority('task:update')")
     public void addTaskToPanel(@RequestBody AddTaskToPanelRequest request) {
         deskService.addTaskToPanel(request.getTaskId(), request.getPanelId());
     }
 
     @DeleteMapping("/panel/task")
-    @PreAuthorize("hasAuthority('desk:update')")
+    @PreAuthorize("hasAuthority('task:update')")
     public void removeTaskFromPanel(@RequestBody AddTaskToPanelRequest request) {
         deskService.removeTaskFromPanel(request.getTaskId(), request.getPanelId());
+    }
+
+    @DeleteMapping("/panel/delete")
+    @PreAuthorize("hasAuthority('desk:update')")
+    public void deletePanel(@RequestParam Long id) {
+        deskService.deletePanel(id);
+    }
+
+    @DeleteMapping("/delete")
+    @PreAuthorize("hasAuthority('desk:delete')")
+    public void deleteDesk(@RequestParam Long id) {
+        deskService.deleteDesk(id);
     }
 
     @PostMapping("/panel/edit")

@@ -20,4 +20,8 @@ public interface DeskService {
     void addTaskToPanel(Long taskId, Long panelId);
     void removeTaskFromPanel(Long taskId, Long panelId);
     List<TaskStatus> getAvailableStatuses(Long deskId);
+
+    void deletePanel(Long id);
+
+    void deleteDesk(Long id);
 }

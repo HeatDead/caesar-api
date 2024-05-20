@@ -1,5 +1,6 @@
 package com.vozhov.caesarapi.service;
 
+import com.vozhov.caesarapi.entity.DeskEntity;
 import com.vozhov.caesarapi.entity.ProjectEntity;
 import com.vozhov.caesarapi.entity.ProjectStatus;
 import com.vozhov.caesarapi.entity.UserEntity;
@@ -19,6 +20,8 @@ public class ProjectServiceImp implements ProjectService {
     private final ProjectRepository projectRepository;
     private final UserRepository userRepository;
 
+    private final DeskService deskService;
+
     @Override
     public void createProject(ProjectRequest request) {
         Optional<UserEntity> author = userRepository.findByUsername(request.getAuthor());
@@ -35,7 +38,14 @@ public class ProjectServiceImp implements ProjectService {
     @Override
     public void deleteProject(Long id) {
         Optional<ProjectEntity> optionalProjectEntity = projectRepository.findById(id);
-        optionalProjectEntity.ifPresent(projectRepository::delete);
+        if (optionalProjectEntity.isPresent()) {
+            ProjectEntity pe = optionalProjectEntity.get();
+            List<DeskEntity> desks = deskService.getDesksByProject(pe.getId());
+            for (DeskEntity desk : desks)
+                deskService.deleteDesk(desk.getId());
+
+            projectRepository.delete(pe);
+        }
     }
 
     @Override
