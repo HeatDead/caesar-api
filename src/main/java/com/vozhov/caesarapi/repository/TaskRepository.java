@@ -17,5 +17,6 @@ public interface TaskRepository extends JpaRepository<TaskEntity, Long> {
     List<TaskEntity> findAllByAssignee(UserEntity userEntity);
     List<TaskEntity> findAllByAssigneeAndStatus(UserEntity assignee, TaskStatus status);
     List<TaskEntity> findAllByAssigneeAndFinishedDateBetween(UserEntity assignee, Date finishedDate, Date finishedDate2);
+    List<TaskEntity> findAllByFinishedDate(Date finishedDate);
     //spring.jpa.hibernate.ddl-auto=create-drop
 }

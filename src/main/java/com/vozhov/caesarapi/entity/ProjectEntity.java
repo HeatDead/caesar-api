@@ -25,7 +25,7 @@ public class ProjectEntity {
     @Size(max = 4096)
     private String description;
 
-    @OneToMany
+    @ManyToMany
     private List<UserEntity> employees;
 
     private ProjectStatus status;
